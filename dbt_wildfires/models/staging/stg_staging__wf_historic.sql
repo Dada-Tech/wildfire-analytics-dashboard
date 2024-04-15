@@ -1,3 +1,9 @@
+{{
+    config(
+        materialized='view'
+    )
+}}
+
 with 
 
 source as (
@@ -9,15 +15,23 @@ source as (
 renamed as (
 
     select
+        -- pkg: composite key
         {{ dbt_utils.generate_surrogate_key(['fire_year', 'fire_number']) }} as fire_id,
-        fire_year,
-        fire_number,
+
+        {{ dbt.safe_cast("fire_year", api.Column.translate_type("integer")) }} as fire_year,
+
+        -- forest area code macro
+        {{ get_wildfire_area_code('fire_year') }} as forest_area_code,
+
         fire_name,
-        current_size,
+        {{ dbt.safe_cast("current_size", api.Column.translate_type("float")) }} as current_size,
         size_class,
-        fire_location_latitude,
-        fire_location_longitude,
+        {{ dbt.safe_cast("fire_location_latitude", api.Column.translate_type("float")) }} as fire_location_latitude,
+        {{ dbt.safe_cast("fire_location_longitude", api.Column.translate_type("float")) }} as fire_location_longitude,
+
+        -- macro
         {{ get_bq_formatted_long_lat('fire_location_longitude', 'fire_location_latitude') }} as fire_location_formatted,
+
         fire_origin,
         general_cause_desc,
         industry_identifier_desc,
@@ -67,3 +81,10 @@ renamed as (
 )
 
 select * from renamed
+
+-- dbt build --select <model.sql> --vars '{'is_test_run': false}'
+{% if var('is_test_run', default=false) %}
+
+  limit 50
+
+{% endif %}

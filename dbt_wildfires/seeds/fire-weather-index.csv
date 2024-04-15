@@ -1,0 +1,6 @@
+hazard_rating,ffmc_fine_fuel_moisture_code,dmc_duff_moisture_code,dc_drought_code,isi_initial_spread_index,bui_build_up_index,fwi_fire_weather_index,hfi_head_fire_intensity
+Low,0-76,0-21,0-79,0-1.5,0-24,0-4.5,1-2
+Moderate,77-84,22-27,80-189,2-4,25-40,4.5-10.5,3
+High,85-88,28-40,190-299,5-8,41-60,10.5-18.5,4
+Very High,89-91,41-60,300-424,9-15,61-89,18.5-29.5,5
+Extreme,92+,61+,425+,16+,90+,29.5+,6
