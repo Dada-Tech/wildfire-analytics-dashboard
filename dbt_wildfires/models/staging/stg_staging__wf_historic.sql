@@ -9,6 +9,7 @@ source as (
 renamed as (
 
     select
+        {{ dbt_utils.generate_surrogate_key(['fire_year', 'fire_number']) }} as fire_id,
         fire_year,
         fire_number,
         fire_name,
@@ -16,6 +17,7 @@ renamed as (
         size_class,
         fire_location_latitude,
         fire_location_longitude,
+        {{ get_bq_formatted_long_lat('fire_location_longitude', 'fire_location_latitude') }} as fire_location_formatted,
         fire_origin,
         general_cause_desc,
         industry_identifier_desc,
