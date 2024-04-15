@@ -26,21 +26,39 @@ As wildfires effect the health of the overall population, its become increasingl
 # Project Details
 
 ## Data Ingestion:
+Simple pipeline of an API loader
+Loading into Data Warehouse and Data Lake
+  
+Mage: ```wildfires_pipeline```
+ ![mage.png](readme_images%2Fmage.png)
 
+## Data Warehouse
+```BigQuery``` Fire quicklook
+![data-warehouse.png](readme_images%2Fdata-warehouse.png)
 
 ## DBT:
+Building a model using seed data and wildfire data to a final fact table for historical fire data.  
+DBT applies scalable and testable transformations to the data, and jobs to ensure the data is fresh.
+
+```DBT Model```
+![dbt.png](readme_images%2Fdbt.png)
+
 ### Seed Data
 #### Fire Weather Index
-obtained from Alberta's Open City Data. It was presented as a non-text friendly pseudo-table, so the table had to be reconstructed manually:
+Obtained from Alberta's Open City Data. It was presented as a non-text friendly pseudo-table, so the table had to be reconstructed manually:
 * OCR to extract text
 * LLMs to process and transform text
 * formatted as CSV
-
+* Ultimately ended up not using this, but documentation of steps is important
 https://open.alberta.ca/publications/fire-weather-index-legend
 
 #### Fire Number to Forest Area
 Maps part of the Fire Number code to forest area. Built from description of the Fire Number field name
 https://open.alberta.ca/opendata/wildfire-data
+
+## Visualization
+[Wildfire Public Dashboard](https://lookerstudio.google.com/reporting/c7243c72-47b9-455e-a55f-d30cb3da2305)
+![looker.png](readme_images%2Flooker.png)
 
 # Instructions
 ## 0. Preparation
