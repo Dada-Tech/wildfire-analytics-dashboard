@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: staging
+    database: de-zoom-final
+    schema: historic_fires
+
+    tables:
+      - name: wf_historic
