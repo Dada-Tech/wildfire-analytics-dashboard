@@ -19,9 +19,10 @@ renamed as (
         {{ dbt_utils.generate_surrogate_key(['fire_year', 'fire_number']) }} as fire_id,
 
         {{ dbt.safe_cast("fire_year", api.Column.translate_type("integer")) }} as fire_year,
+        fire_number,
 
         -- forest area code macro
-        {{ get_wildfire_area_code('fire_year') }} as forest_area_code,
+        {{ get_wildfire_area_code('fire_number') }} as forest_area_code,
 
         fire_name,
         {{ dbt.safe_cast("current_size", api.Column.translate_type("float")) }} as current_size,
