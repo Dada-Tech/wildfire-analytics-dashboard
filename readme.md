@@ -9,6 +9,18 @@ As wildfires effect the health of the overall population, its become increasingl
 * Transform & Load the data into a Data Lake
 * Provide insights, reports to support data-driven decisions
 
+## Architecture:
+
+![pipeline-architecture.jpg](readme_images/pipeline-architecture.jpg)
+1. Open City Data
+2. Dockerized Mage orchestrator
+3. Orchestration: Python ETL Pipeline in Mage
+4. Automated Infrastructure as code: Terraform
+5. Data Lake: Google Cloud Storage Bucket
+6. Data Warehouse: BigQuery
+7. Data transformations & Model building: DBT Cloud
+8. Reporting & Visualization
+
 ## Tools:
 1. **Infrastructure Setup:** Terraform to build Cloud Storage and BigQuery resources.
 2. **Environment:** Python, Docker
