@@ -107,7 +107,3 @@ Ensure your key is saved to ./keys because that will be a local volumne mount
 * Create a dbt account for Cloud use
 * Connect to your repo
 * Automate via Job creation or CI/CD
-
-## 6. Looker Studio
-[Wildfire Public Dashboard](https://lookerstudio.google.com/reporting/c7243c72-47b9-455e-a55f-d30cb3da2305)
-You are free to copy the dashboard for yourself
