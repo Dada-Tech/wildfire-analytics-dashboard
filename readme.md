@@ -9,6 +9,13 @@ As wildfires effect the health of the overall population, its become increasingl
 * Transform & Load the data into a Data Lake
 * Provide insights, reports to support data-driven decisions
 
+## Data Sources:
+#### Historical Wildfires:
+[Alberta Historical Wildfire Data](https://open.alberta.ca/opendata/wildfire-data)
+
+#### Active Wildfires:
+[Natural Resources Canada](https://cwfis.cfs.nrcan.gc.ca/datamart/metadata/activefires)
+
 ## Architecture:
 
 ![pipeline-architecture.jpg](readme_images/pipeline-architecture.jpg)
@@ -32,7 +39,7 @@ As wildfires effect the health of the overall population, its become increasingl
 4. **Orchestration:** using Mage to orchestrate the ETL pipeline
 5. **Containerization & Deployment:** Dockerized the ETL pipeline for scalability
 6. **Data Warehouse:** Use DBT perform consistent and stable transformations to build a historical fact table
-7. **Visualization:** [Looker Studio Historical Fires Report](https://lookerstudio.google.com/reporting/c7243c72-47b9-455e-a55f-d30cb3da2305)
+7. **Visualization:** I made a Looker Studio Historical Fires Report
 8. **Automation:** using Mage, and DBT to enforce data freshness
 
 # Project Details
@@ -41,11 +48,14 @@ As wildfires effect the health of the overall population, its become increasingl
 Simple pipeline of an API loader
 Loading into Data Warehouse and Data Lake
   
-Mage: ```wildfires_pipeline```
+```Mage```: Orchestration
+* A simple column name transformation was used because the data was messy
+  * Column name erroneously named ``` "`" ``` which is an illegal character in BigQuery.
+* Upon further investigation and referring to the data dictionary, this column should be named ```"true_cause"```
  ![mage.png](readme_images%2Fmage.png)
 
 ## Data Warehouse
-```BigQuery``` Fire quicklook
+```BigQuery``` first inspection
 ![data-warehouse.png](readme_images%2Fdata-warehouse.png)
 
 ## DBT:
@@ -65,11 +75,11 @@ Obtained from Alberta's Open City Data. It was presented as a non-text friendly 
 https://open.alberta.ca/publications/fire-weather-index-legend
 
 #### Fire Number to Forest Area
-Maps part of the Fire Number code to forest area. Built from description of the Fire Number field name
-https://open.alberta.ca/opendata/wildfire-data
+Constructed a separate table of Fire Number data based on text descriptions found in the data dictionary.  
+This will be inner-joined with the main table to provide detailed wildfire location names.
+![fire-number-data-dictionary.png](readme_images%2Ffire-number-data-dictionary.png)
 
 ## Visualization
-[Wildfire Public Dashboard](https://lookerstudio.google.com/reporting/c7243c72-47b9-455e-a55f-d30cb3da2305)
 ![looker.png](readme_images%2Flooker.png)
 
 # Instructions
@@ -107,7 +117,3 @@ Ensure your key is saved to ./keys because that will be a local volumne mount
 * Create a dbt account for Cloud use
 * Connect to your repo
 * Automate via Job creation or CI/CD
-
-## 6. Looker Studio
-[Wildfire Public Dashboard](https://lookerstudio.google.com/reporting/c7243c72-47b9-455e-a55f-d30cb3da2305)
-You are free to copy the dashboard for yourself

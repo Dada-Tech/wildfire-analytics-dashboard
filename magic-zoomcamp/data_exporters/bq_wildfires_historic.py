@@ -16,7 +16,7 @@ def export_data_to_big_query(df: DataFrame, **kwargs) -> None:
 
     Docs: https://docs.mage.ai/design/data-loading#bigquery
     """
-    table_id = 'de-zoom-final.historic_fires.wf_historic'
+    table_id = 'de-zoom-final.wildfires_historic_dataset.historic'
     config_path = path.join(get_repo_path(), 'io_config.yaml')
     config_profile = 'default'
 

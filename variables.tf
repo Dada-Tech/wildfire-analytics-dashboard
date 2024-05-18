@@ -1,7 +1,7 @@
 locals {
   credentials = "./keys/de-zoom-final-3c45fca759a8.json"
   project = "de-zoom-final"
-  bucket_name = "wildfire-main"
+  bucket_name = "wildfires"
 }
 
 # choose region based on your location, https://cloud.google.com/about/locations.
@@ -13,8 +13,15 @@ variable "region" {
 }
 
 # Equivalent to schema in data warehouse
-variable "BQ_DATASET" {
-  description = "BigQuery Dataset that raw data (from GCS) will be written to"
+variable "HISTORIC" {
+  description = "Name of historic wildfire dataset"
   type = string
-  default = "historic_fires"
+  default = "historic"
+}
+
+# Equivalent to schema in data warehouse
+variable "ACTIVE" {
+  description = "Name of active wildfire dataset"
+  type = string
+  default = "active"
 }

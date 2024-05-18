@@ -19,8 +19,11 @@ def export_data_to_google_cloud_storage(df: DataFrame, **kwargs) -> None:
     config_path = path.join(get_repo_path(), 'io_config.yaml')
     config_profile = 'default'
 
-    bucket_name = 'wildfire-main_de-zoom-final'
-    object_key = 'wildfires_all'
+    bucket_name = 'wildfires_historic_bucket'
+    object_key = 'wf_historic.csv'
+
+    print("exporting data in the following format...")
+    print(df.head())
 
     GoogleCloudStorage.with_config(ConfigFileLoader(config_path, config_profile)).export(
         df,

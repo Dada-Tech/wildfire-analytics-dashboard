@@ -1,28 +1,9 @@
 blocks:
 - all_upstream_blocks_executed: true
   color: null
-  configuration:
-    file_source:
-      path: data_exporters/gcs_export.py
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: gcs_export
-  retry_config: null
-  status: executed
-  timeout: null
-  type: data_exporter
-  upstream_blocks:
-  - cwfis_api_data_loader
-  uuid: gcs_export
-- all_upstream_blocks_executed: true
-  color: null
   configuration: {}
   downstream_blocks:
-  - gcs_export
-  - bq_wildfires_historic
+  - true_cause_col_name
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -37,6 +18,42 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
+  downstream_blocks:
+  - gcs_export
+  - bq_wildfires_historic
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: true_cause col name
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - cwfis_api_data_loader
+  uuid: true_cause_col_name
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: data_exporters/gcs_export.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_export
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - true_cause_col_name
+  uuid: gcs_export
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
@@ -48,7 +65,7 @@ blocks:
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - cwfis_api_data_loader
+  - true_cause_col_name
   uuid: bq_wildfires_historic
 cache_block_output_in_memory: false
 callbacks: []
@@ -71,7 +88,7 @@ settings:
 spark_config: {}
 tags: []
 type: python
-updated_at: '2024-04-15 21:56:11'
+updated_at: '2024-05-18 19:41:13'
 uuid: wildfire_pipeline
 variables_dir: /home/src/mage_data/magic-zoomcamp
 widgets: []

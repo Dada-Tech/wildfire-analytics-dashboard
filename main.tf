@@ -13,9 +13,9 @@ provider "google" {
   region      = var.region
 }
 
-# demo-bucket is the variable name, local nameof this resource
-resource "google_storage_bucket" "historical-fires-bucket" {
-  name          = "${local.bucket_name}_${local.project}" # has to be globally unique
+# GCB: Historic
+resource "google_storage_bucket" "wf_historic" {
+  name          = "${local.bucket_name}_${var.HISTORIC}_bucket" # has to be globally unique
   location      = var.region
   force_destroy = true
 
@@ -40,9 +40,43 @@ resource "google_storage_bucket" "historical-fires-bucket" {
   }
 }
 
-# Ref: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/bigquery_dataset
-resource "google_bigquery_dataset" "dataset" {
-  dataset_id = var.BQ_DATASET
+# GCB: Historic
+resource "google_storage_bucket" "wf_active" {
+  name          = "${local.bucket_name}_${var.ACTIVE}_bucket" # has to be globally unique
+  location      = var.region
+  force_destroy = true
+
+  # delete in 3 days
+  lifecycle_rule {
+    condition {
+      age = 55 # days
+    }
+    action {
+      type = "Delete"
+    }
+  }
+
+  # removes chunked data that hasn't finished uploading even across a day. It would be unusable anyway
+  lifecycle_rule {
+    condition {
+      age = 55
+    }
+    action {
+      type = "AbortIncompleteMultipartUpload"
+    }
+  }
+}
+
+# BQ Dataset: Historic
+resource "google_bigquery_dataset" "wf_historic" {
+  dataset_id = "${local.bucket_name}_${var.HISTORIC}_dataset"
+  project    = local.project
+  location   = var.region
+}
+
+# BQ Dataset: Active
+resource "google_bigquery_dataset" "wf_active" {
+  dataset_id = "${local.bucket_name}_${var.ACTIVE}_dataset"
   project    = local.project
   location   = var.region
 }
