@@ -3,7 +3,8 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - true_cause_col_name
+  - gcs_export_active
+  - bq_wildfires_active
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -17,68 +18,52 @@ blocks:
   uuid: cwfis_api_data_loader
 - all_upstream_blocks_executed: true
   color: null
-  configuration: {}
-  downstream_blocks:
-  - gcs_export
-  - bq_wildfires_historic
+  configuration:
+    file_source:
+      path: data_exporters/bq_wildfires_active.py
+  downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: true_cause col name
+  name: bq_wildfires_active
   retry_config: null
   status: executed
   timeout: null
-  type: transformer
+  type: data_exporter
   upstream_blocks:
   - cwfis_api_data_loader
-  uuid: true_cause_col_name
+  uuid: bq_wildfires_active
 - all_upstream_blocks_executed: true
   color: null
   configuration:
     file_source:
-      path: data_exporters/gcs_export.py
+      path: data_exporters/gcs_export_active.py
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: gcs_export
+  name: gcs_export_active
   retry_config: null
   status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - true_cause_col_name
-  uuid: gcs_export
-- all_upstream_blocks_executed: true
-  color: null
-  configuration: {}
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: bq_wildfires_historic
-  retry_config: null
-  status: executed
-  timeout: null
-  type: data_exporter
-  upstream_blocks:
-  - true_cause_col_name
-  uuid: bq_wildfires_historic
+  - cwfis_api_data_loader
+  uuid: gcs_export_active
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
 conditionals: []
 created_at: '2024-04-13 22:34:36.771752+00:00'
 data_integration: null
-description: null
+description: Active Canadian Wildfires
 executor_config: {}
 executor_count: 1
 executor_type: null
 extensions: {}
-name: wildfire pipeline
+name: active_wildfire_pipeline
 notification_config: {}
 remote_variables_dir: null
 retry_config: {}
@@ -88,7 +73,7 @@ settings:
 spark_config: {}
 tags: []
 type: python
-updated_at: '2024-05-18 19:41:13'
-uuid: wildfire_pipeline
+updated_at: '2024-05-18T21:15:02+00:00'
+uuid: active_wildfire_pipeline
 variables_dir: /home/src/mage_data/magic-zoomcamp
 widgets: []

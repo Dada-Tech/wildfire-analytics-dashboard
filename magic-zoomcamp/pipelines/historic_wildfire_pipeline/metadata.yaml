@@ -1,0 +1,94 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - open_alberta_true_cause_col_name
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: Open Alberta API Data Loader
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: open_alberta_api_data_loader
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - gcs_export_historic
+  - bq_wildfires_historic
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: open_alberta_true_cause col name
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - open_alberta_api_data_loader
+  uuid: open_alberta_true_cause_col_name
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_source:
+      path: data_exporters/gcs_export.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_export_historic
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - open_alberta_true_cause_col_name
+  uuid: gcs_export_historic
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: bq_wildfires_historic
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - open_alberta_true_cause_col_name
+  uuid: bq_wildfires_historic
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-04-13 22:34:36.771752+00:00'
+data_integration: null
+description: Historical Albertan Wildfires
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: historic wildfire pipeline
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+updated_at: '2024-05-18T21:02:13+00:00'
+uuid: historic_wildfire_pipeline
+variables_dir: /home/src/mage_data/magic-zoomcamp
+widgets: []

@@ -12,10 +12,10 @@ def load_data_from_api(*args, **kwargs):
     """
     Template for loading data from API
     """
-    url = "https://cwfis.cfs.nrcan.gc.ca/downloads/activefires/activefires.csv"
+    url = "https://open.alberta.ca/dataset/a221e7a0-4f46-4be7-9c5a-e29de9a3447e/resource/80480824-0c50-456c-9723-f9d4fc136141/download/fp-historical-wildfire-data-2006-2021.xlsx"
 
-    # Read CSV File
-    return pd.read_csv(url)
+    # Read Excel File
+    return pd.read_excel(url, dtype=str)
 
 
 @test
