@@ -30,27 +30,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 # In this example config, we tell dbt to build all models in the example/
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
-models:
-  dbt_wildfires:
-    wildfires_historic_dataset:
-        fact_historical_fires:
-          schema: wildfires_historic_dataset
-
-    wildfires_active_dataset:
-      fact_active_fires:
-        schema: wildfires_active_dataset
-
-    staging:
-      # dim_wildfire_active_stage_of_control:
-      #   schema: wildfires_active_dataset
-      # dim_wildfire_historical_number:
-      #   schema: wildfires_historic_dataset
-      stg_staging__active:
-        schema: wildfires_active_dataset
-      stg_staging__historic:
-        schema: wildfires_historic_dataset
-      
-      
 
 vars:
   known_forest_area_codes: ['C', 'E', 'H', 'G', 'L', 'M', 'P', 'R', 'S', 'W']
