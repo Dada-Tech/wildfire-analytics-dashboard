@@ -1,14 +1,64 @@
 version: 2
 
 sources:
-  - name: staging
+  - name: staging_historic
     database: de-zoom-final
     schema: wildfires_historic_dataset
-
     tables:
       - name: historic
+  
+  - name: staging_active
+    database: de-zoom-final
+    schema: wildfires_active_dataset
+    tables:
+      - name: active
 
-models:
+models: 
+  - name: stg_staging__active
+    description: "Active wildfires in Canada"
+    columns:
+      - name: agency
+        description: "The agency responsible for the fire"
+        data_type: STRING
+      - name: firename
+        description: "Name of the fire"
+        data_type: STRING
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+      - name: lat
+        description: "Latitude of the fire location"
+        data_type: FLOAT
+        tests:
+          - not_null:
+              severity: warn
+      - name: lon
+        description: "Longitude of the fire location"
+        data_type: FLOAT
+        tests:
+          - not_null:
+              severity: warn
+      - name: startdate
+        description: "Start date of the fire"
+        data_type: STRING
+      - name: hectares
+        description: "Area affected by the fire in hectares"
+        data_type: FLOAT
+        tests:
+          - not_null:
+              severity: warn
+      - name: stage_of_control
+        description: "Stage of control of the fire"
+        data_type: STRING
+      - name: timezone
+        description: "Timezone of the fire location"
+        data_type: STRING
+      - name: response_type
+        description: "Type of response to the fire"
+        data_type: STRING
+  
   - name: stg_staging__historic
     description: ""
     columns:
@@ -241,3 +291,4 @@ models:
       - name: ex_hectares
         data_type: string
         description: ""
+   

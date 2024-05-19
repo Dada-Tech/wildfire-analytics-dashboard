@@ -1,0 +1,23 @@
+my_bigquery_profile:
+  target: dev
+
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: de-zoom-final
+      dataset: wildfifes_staging_1
+      threads: 1
+      timeout_seconds: 300
+
+  configs:
+    dev:
+      fact_active_fires:
+        schema: wildfires_active_dataset
+      fact_historical_fires:
+        schema: wildfires_historic_dataset
+    prod:
+      fact_active_fires:
+        schema: wildfires_active_dataset
+      fact_historical_fires:
+        schema: wildfires_historic_dataset

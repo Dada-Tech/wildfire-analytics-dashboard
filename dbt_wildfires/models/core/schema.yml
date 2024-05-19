@@ -224,7 +224,7 @@ models:
         data_type: string
         description: ""
 
-  - name: dim_wildfire_number
+  - name: dim_wildfire_historical_number
     description: ""
     columns:
       - name: wildfire_number
@@ -232,5 +232,16 @@ models:
         description: ""
 
       - name: forest_area
+        data_type: string
+        description: ""
+
+  - name: dim_wildfire_active_stage_of_control
+    description: ""
+    columns:
+      - name: stage
+        data_type: string
+        description: ""
+
+      - name: description
         data_type: string
         description: ""

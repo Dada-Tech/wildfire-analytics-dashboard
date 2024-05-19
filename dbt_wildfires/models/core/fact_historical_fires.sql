@@ -9,7 +9,7 @@ with historical as (
     from {{ ref('stg_staging__historic') }}
 ),
 wildfire_number as (
-    select * from {{ ref('dim_wildfire_number') }}
+    select * from {{ ref('dim_wildfire_historical_number') }}
 )
 
 select *

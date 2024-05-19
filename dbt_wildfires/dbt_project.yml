@@ -36,6 +36,17 @@ models:
     example:
       +materialized: view
 
+  fact_historical_fires:
+    schema: wildfires_historic_dataset
+  stg_staging__historic:
+    schema: wildfires_historic_dataset
+ 
+  fact_active_fires:
+    schema: wildfires_active_dataset
+  stg_staging__active:
+    schema: wildfires_active_dataset
+      
+
 vars:
   known_forest_area_codes: ['C', 'E', 'H', 'G', 'L', 'M', 'P', 'R', 'S', 'W']
   know_size_classes: ['A', 'B', 'C', 'D', 'E']
