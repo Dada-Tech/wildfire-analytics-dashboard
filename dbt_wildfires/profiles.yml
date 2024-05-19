@@ -1,9 +1,0 @@
-# my_bigquery_connection:
-#   target: dev
-
-#   outputs:
-#     dev:
-#       type: bigquery
-#       method: service-account
-#       project: de-zoom-final
-#       location: northamerica-northeast1
