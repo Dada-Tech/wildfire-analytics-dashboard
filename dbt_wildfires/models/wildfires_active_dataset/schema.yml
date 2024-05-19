@@ -1,0 +1,44 @@
+version: 2
+
+models:
+ 
+  - name: dim_wildfire_active_stage_of_control
+    description: ""
+    columns:
+      - name: stage
+        data_type: string
+        description: ""
+
+      - name: description
+        data_type: string
+        description: ""
+  
+  - name: fact_active_fires
+    description: "All active fires in Canada"
+    columns:
+      - name: agency
+        description: "The agency responsible for managing the fire."
+
+      - name: fire_name
+        description: "The name of the fire."
+
+      - name: lat
+        description: "The latitude coordinate of the fire location."
+
+      - name: lon
+        description: "The longitude coordinate of the fire location."
+
+      - name: startdate
+        description: "The date when the fire started."
+
+      - name: hectares
+        description: "The area covered by the fire in hectares."
+
+      - name: stage_of_control
+        description: "The current stage of control of the fire (e.g., initial attack, under control, being monitored)."
+
+      - name: timezone
+        description: "The timezone in which the fire is located."
+
+      - name: response_type
+        description: "The type of response being implemented for the fire (e.g., direct attack, indirect attack, monitoring)."

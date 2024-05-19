@@ -1,4 +1,4 @@
 select 
-wildfire_number,
-forest_area
+stage,
+description
 from {{ ref('stage-of-control') }}

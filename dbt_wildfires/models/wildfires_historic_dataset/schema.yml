@@ -1,6 +1,17 @@
 version: 2
 
 models:
+  - name: dim_wildfire_historical_number
+    description: ""
+    columns:
+      - name: wildfire_number
+        data_type: string
+        description: ""
+
+      - name: forest_area
+        data_type: string
+        description: ""
+
   - name: fact_historical_fires
     description: ""
     columns:
@@ -221,27 +232,5 @@ models:
         description: ""
 
       - name: forest_area
-        data_type: string
-        description: ""
-
-  - name: dim_wildfire_historical_number
-    description: ""
-    columns:
-      - name: wildfire_number
-        data_type: string
-        description: ""
-
-      - name: forest_area
-        data_type: string
-        description: ""
-
-  - name: dim_wildfire_active_stage_of_control
-    description: ""
-    columns:
-      - name: stage
-        data_type: string
-        description: ""
-
-      - name: description
         data_type: string
         description: ""

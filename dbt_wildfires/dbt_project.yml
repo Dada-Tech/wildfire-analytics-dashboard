@@ -32,19 +32,24 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   dbt_wildfires:
-    # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    wildfires_historic_dataset:
+        fact_historical_fires:
+          schema: wildfires_historic_dataset
 
-  fact_historical_fires:
-    schema: wildfires_historic_dataset
-  stg_staging__historic:
-    schema: wildfires_historic_dataset
- 
-  fact_active_fires:
-    schema: wildfires_active_dataset
-  stg_staging__active:
-    schema: wildfires_active_dataset
+    wildfires_active_dataset:
+      fact_active_fires:
+        schema: wildfires_active_dataset
+
+    staging:
+      # dim_wildfire_active_stage_of_control:
+      #   schema: wildfires_active_dataset
+      # dim_wildfire_historical_number:
+      #   schema: wildfires_historic_dataset
+      stg_staging__active:
+        schema: wildfires_active_dataset
+      stg_staging__historic:
+        schema: wildfires_historic_dataset
+      
       
 
 vars:

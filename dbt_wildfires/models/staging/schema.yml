@@ -20,7 +20,7 @@ models:
       - name: agency
         description: "The agency responsible for the fire"
         data_type: STRING
-      - name: firename
+      - name: fire_name
         description: "Name of the fire"
         data_type: STRING
         tests:
