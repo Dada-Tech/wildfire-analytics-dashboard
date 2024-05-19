@@ -8,7 +8,7 @@ with
 
 source as (
 
-    select * from {{ source('staging', 'wf_historic') }}
+    select * from {{ source('staging', 'historic') }}
 
 ),
 

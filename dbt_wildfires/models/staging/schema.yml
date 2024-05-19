@@ -3,13 +3,13 @@ version: 2
 sources:
   - name: staging
     database: de-zoom-final
-    schema: historic_fires
+    schema: wildfires_historic_dataset
 
     tables:
-      - name: wf_historic
+      - name: historic
 
 models:
-  - name: stg_staging__wf_historic
+  - name: stg_staging__historic
     description: ""
     columns:
       - name: fire_id
