@@ -80,3 +80,17 @@ resource "google_bigquery_dataset" "wf_active" {
   project    = local.project
   location   = var.region
 }
+
+# BQ Dataset: staging
+resource "google_bigquery_dataset" "staging" {
+  dataset_id = "${local.bucket_name}_staging"
+  project    = local.project
+  location   = var.region
+}
+
+# BQ Dataset: prod
+resource "google_bigquery_dataset" "prod" {
+  dataset_id = "${local.bucket_name}_prod"
+  project    = local.project
+  location   = var.region
+}
