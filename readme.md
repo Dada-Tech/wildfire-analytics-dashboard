@@ -1,4 +1,7 @@
 # Wildfires - Past and Present Insights
+### [View Live Project](https://lookerstudio.google.com/reporting/0ab14a2a-c5bc-4737-86a3-3e65f73ee9f9)
+###### Last Checked: 2024-05-20
+
 ## Project Overview:
 This project leverages wildfire data to story-tell.
 Its core aim is to deliver valuable insights by analyzing both historical and ongoing wildfire incidents.
