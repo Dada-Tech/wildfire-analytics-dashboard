@@ -105,7 +105,7 @@ Using LookerStudio to have an interactive dashboard with the following filters.
   * A lot of fires happen each year. which means too many data points to interpret a single graph
 * ##### Historic fires by class size of fire
   * Users would be further break down historic fires
-* ##### Active fires by hectares
+* ##### Active fires by min hectares
   * Users might want to filter out smaller fires
 * ##### Active fires by stage of control
   * The current concern might be to quickly drill down to out of control fires
