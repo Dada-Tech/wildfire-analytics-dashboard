@@ -1,13 +1,23 @@
-# Historical Wildfires in Alberta
-## Overview:
-This project uses open city wildfire data to story tell.
-The motivation behind this project is to extract insights by looking at historical fire causes over the years.
-As wildfires effect the health of the overall population, its become increasingly important to monitor and understand fires and their various causes, including human error.
+# Wildfires - Past and Present Insights
+## Project Overview:
+This project leverages wildfire data to story-tell.
+Its core aim is to deliver valuable insights by analyzing both historical and ongoing wildfire incidents.
+In the era of climate change, there's a growing urgency to monitor and comprehend these occurrences and their wide range of causes, including human error.
+
+As a resident of a town that underwent a town-wide fire evacuation, observing that data as an anomaly in this dashboard was enlightening.
+During the project's inception, my town was also under a fire-watch warning, with some residents already evacuating.
+It was reassuring to note that the fire encroaching upon my family's hometown was now under control according to the latest daily data.
+Ensuring the accuracy and currency of this project remained imperative throughout its development.
 
 ## Objective:
-* Extract historical wildfire data
+* Extract historical and active wildfire data
 * Transform & Load the data into a Data Lake
-* Provide insights, reports to support data-driven decisions
+* Provide insights and reports which support data-driven decisions and provide insight into wildfires.
+
+###### Visualization 1 - Active Wildfires
+![wf-active.png](readme_images%2Fwf-active.png)
+###### Visualization 2 - Historic Wildfires
+![wf-historic.png](readme_images%2Fwf-historic.png)
 
 ## Data Sources:
 #### Historical Wildfires:
@@ -17,9 +27,8 @@ As wildfires effect the health of the overall population, its become increasingl
 [Natural Resources Canada](https://cwfis.cfs.nrcan.gc.ca/datamart/metadata/activefires)
 
 ## Architecture:
-
 ![pipeline-architecture.jpg](readme_images/pipeline-architecture.jpg)
-1. Open City Data
+1. Open City Data, Canada Active Wildfire data
 2. Dockerized Mage orchestrator
 3. Orchestration: Python ETL Pipeline in Mage
 4. Automated Infrastructure as code: Terraform
@@ -33,10 +42,10 @@ As wildfires effect the health of the overall population, its become increasingl
 2. **Environment:** Python, Docker
 3. **ETL Pipeline:**
    * Extract data: Open City historical fire data
-   * Transform data: transform to Pandas Dataframe from Excel spreadsheet
+   * Transform data: transform to Pandas Dataframe from various sources (Excel & CSV)
    * Load the Data: into Data Lake (GCS) and Data Warehouse (BigQuery) 
 
-4. **Orchestration:** using Mage to orchestrate the ETL pipeline
+4. **Orchestration:** using Mage to orchestrate the ETL pipeline. Running daily for active Wildfires only
 5. **Containerization & Deployment:** Dockerized the ETL pipeline for scalability
 6. **Data Warehouse:** Use DBT perform consistent and stable transformations to build a historical fact table
 7. **Visualization:** I made a Looker Studio Historical Fires Report
@@ -49,24 +58,28 @@ Simple pipeline of an API loader
 Loading into Data Warehouse and Data Lake
   
 ```Mage```: Orchestration
-* A simple column name transformation was used because the data was messy
+* Historic: A simple column name transformation was used because the data was messy
   * Column name erroneously named ``` "`" ``` which is an illegal character in BigQuery.
-* Upon further investigation and referring to the data dictionary, this column should be named ```"true_cause"```
- ![mage.png](readme_images%2Fmage.png)
-
+  * Upon further investigation and referring to the data dictionary, this column should be named ```"true_cause"```
+###### Historic Wildfires  
+![mage-historic.png](readme_images%2Fmage-historic.png)
+###### Active Wildfires
+![mage-active.png](readme_images%2Fmage-active.png)
+###### Active Wildfires Scheduling
+![mage-pipeline-active.png](readme_images%2Fmage-pipeline-active.png)
 ## Data Warehouse
 ```BigQuery``` first inspection
 ![data-warehouse.png](readme_images%2Fdata-warehouse.png)
 
 ## DBT:
 Building a model using seed data and wildfire data to a final fact table for historical fire data.  
-DBT applies scalable and testable transformations to the data, and jobs to ensure the data is fresh.
+DBT applies scalable, scheduled and testable transformations to the data, and jobs to ensure the data is fresh.
 
 ```DBT Model```
 ![dbt.png](readme_images%2Fdbt.png)
 
 ### Seed Data
-#### Fire Weather Index
+#### Historic: Fire Weather Index
 Obtained from Alberta's Open City Data. It was presented as a non-text friendly pseudo-table, so the table had to be reconstructed manually:
 * OCR to extract text
 * LLMs to process and transform text
@@ -74,13 +87,25 @@ Obtained from Alberta's Open City Data. It was presented as a non-text friendly 
 * Ultimately ended up not using this, but documentation of steps is important
 https://open.alberta.ca/publications/fire-weather-index-legend
 
-#### Fire Number to Forest Area
+#### Historic: Fire Number to Forest Area
 Constructed a separate table of Fire Number data based on text descriptions found in the data dictionary.  
 This will be inner-joined with the main table to provide detailed wildfire location names.
 ![fire-number-data-dictionary.png](readme_images%2Ffire-number-data-dictionary.png)
 
+#### Active: Wildfires Stage of Control
+Built a table from the stage of control described below to increase interpretability if the data.
+![active-wildfires-data-dictionary.png](readme_images%2Factive-wildfires-data-dictionary.png)
+
 ## Visualization
-![looker.png](readme_images%2Flooker.png)
+Using LookerStudio to have an interactive dashboard with the following filters.
+* ##### Historic fires by year
+  * A lot of fires happen each year. which means too many data points to interpret a single graph
+* ##### Historic fires by class size of fire
+  * Users would be further break down historic fires
+* ##### Active fires by hectares
+  * Users might want to filter out smaller fires
+* ##### Active fires by stage of control
+  * The current concern might be to quickly drill down to out of control fires
 
 # Instructions
 ## 0. Preparation
@@ -109,7 +134,7 @@ Variables are stored and used from previous steps here in the ```variables.tf```
 
 ## 4. Mage
 A simple Dockerfile is used to build a mage container.
-Ensure your key is saved to ./keys because that will be a local volumne mount
+Ensure your key is saved to ./keys because that will be a local volume mount
 
 ```docker compose up -d```
 
