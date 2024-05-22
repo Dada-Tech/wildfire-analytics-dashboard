@@ -30,7 +30,7 @@ Ensuring the accuracy and currency of this project remained imperative throughou
 [Natural Resources Canada](https://cwfis.cfs.nrcan.gc.ca/datamart/metadata/activefires)
 
 ## Architecture:
-![pipeline-architecture.jpg](readme_images/pipeline-architecture.jpg)
+![architecture.jpg](readme_images/architecture.jpg)
 1. Open City Data, Canada Active Wildfire data
 2. Dockerized Mage orchestrator
 3. Orchestration: Python ETL Pipeline in Mage
@@ -39,6 +39,7 @@ Ensuring the accuracy and currency of this project remained imperative throughou
 6. Data Warehouse: BigQuery
 7. Data transformations & Model building: DBT Cloud
 8. Reporting & Visualization
+9. Deploy Mage Pipeline to Google Cloud runner
 
 ## Tools:
 1. **Infrastructure Setup:** Terraform to build Cloud Storage and BigQuery resources.
@@ -53,6 +54,7 @@ Ensuring the accuracy and currency of this project remained imperative throughou
 6. **Data Warehouse:** Use DBT perform consistent and stable transformations to build a historical fact table
 7. **Visualization:** I made a Looker Studio Historical Fires Report
 8. **Automation:** using Mage, and DBT to enforce data freshness
+9. **Deployment:** Deployed Pipeline to the cloud with tight security
 
 # Project Details
 
@@ -148,3 +150,6 @@ Ensure your key is saved to ./keys because that will be a local volume mount
 * Create a dbt account for Cloud use
 * Connect to your repo
 * Automate via Job creation or CI/CD
+
+## 6. Deployment
+* Deploy the pipelines in Mage to Google Cloud Runner using Terraform [as shown in this guide](https://docs.mage.ai/production/deploying-to-cloud/gcp/setup).
