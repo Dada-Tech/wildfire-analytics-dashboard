@@ -78,6 +78,9 @@ Loading into Data Warehouse and Data Lake
 Building a model using seed data and wildfire data to a final fact table for historical fire data.  
 DBT applies scalable, scheduled and testable transformations to the data, and jobs to ensure the data is fresh.
 
+* Active Wildfire Outliers:
+  * Active fires listed that had a date beyond the current date. One record existed which threw off the "most recent fire" analytics
+
 ```DBT Model```
 ![dbt.png](readme_images%2Fdbt.png)
 
