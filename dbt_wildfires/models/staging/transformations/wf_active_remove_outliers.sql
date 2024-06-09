@@ -4,5 +4,7 @@ with active as (
 )
 
 select * from active
-WHERE CAST(LEFT(startdate,10) AS DATE) <= current_date()
+WHERE 
+startdate != '' AND
+CAST(LEFT(startdate,10) AS DATE) <= current_date()
 ORDER BY startdate DESC
